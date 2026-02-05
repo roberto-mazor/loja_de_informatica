@@ -74,6 +74,15 @@ app.get("/produtos", function (req, res){
     })
 })
 
+app.get("/unidades", function (req, res){
+    res.setHeader('Access-Control-Allow-Origin', '*')
+    // res.send(lista_unidades)
+    conexao.query("SELECT * FROM `unidades`", function (erro, lista_unidades, campos){
+        console.log(lista_unidades)
+        res.send(lista_unidades)
+    })
+})
+
 app.listen (3000)
 
 
