@@ -86,4 +86,4 @@ app.listen (3000)
 // 7- trazer apenas os 12 últimos produtos 
 // 8- trazer apenas os 12 primeiros produtos com avaliação 5 
 // 9- trazer todo os produtos em ordem de preço do menor para o maior 
-// 10- trazer todo os produtos em ordem de avaliação do menor para o maior
+// 10- trazer todo os produtos em ordem de avaliação do menor para o maior.
