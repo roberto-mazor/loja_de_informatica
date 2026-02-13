@@ -2,6 +2,29 @@ function fnLimparCampos() {
     document.getElementById("formUnidade").reset()
 }
 
+// ===============================
+// Função para mostrar Toast
+// ===============================
+function mostrarToast(mensagem, tipo = "success") {
+
+    const toastElement = document.getElementById("toastMensagem");
+    const toastBody = document.getElementById("toast-body");
+
+    // Remove classes anteriores
+    toastElement.classList.remove("text-bg-success", "text-bg-danger");
+
+    if (tipo === "success") {
+        toastElement.classList.add("text-bg-success");
+    } else {
+        toastElement.classList.add("text-bg-danger");
+    }
+
+    toastBody.textContent = mensagem;
+
+    const toast = new bootstrap.Toast(toastElement);
+    toast.show();
+}
+
 function fnCadastrarUnidade() {
 
     let formDados = {
@@ -25,17 +48,19 @@ function fnCadastrarUnidade() {
     })
     .then(resposta => {
         if (!resposta.ok) {
-            throw new Error("Erro na requisição: " + resposta.status)
+            throw new Error("Erro ao salvar no servidor");
         }
-        return resposta.json()
+        return resposta.json();
     })
     .then((dados) => {
-        console.log("Salvo com sucesso:", dados)
-        fnLimparCampos()
+        fnLimparCampos();
+        mostrarToast("Produto cadastrado com sucesso! ✅", "success");
+        console.log(dados);
     })
-    .catch(erro => {
-        console.error("Erro ao cadastrar:", erro.message)
-    })
+    .catch((erro) => {
+        mostrarToast("Erro ao cadastrar produto ❌", "danger");
+        console.error(erro.message);
+    });
 }
 
 document
