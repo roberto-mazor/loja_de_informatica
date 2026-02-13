@@ -15,18 +15,18 @@ function fnCadastrarProdutos() {
 
     let formDados = {
         titulo: document.getElementById("titulo").value,
-        preco: document.getElementById("preco").value,
-        descricao: document.getElementById("descricao").value,
-        avaliacao: document.getElementById("avaliacao").value,
         foto: document.getElementById("foto").value,
-        categoria: document.getElementById("categoria").value
+        preco: document.getElementById("preco").value,
+        avaliacao: document.getElementById("avaliacao").value,
+        categoria: document.getElementById("categoria").value,
+        descricao: document.getElementById("descricao").value
     }
     console.dir(formDados)
 
     fetch('http://localhost:3000/produto/', {
-        method: 'POST,',
-        headers: {'conttent-type': 'application/json'},
-        bady: JSON.stringify(formDados)
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(formDados)
 })
 
 .then(reposta => reposta.json())

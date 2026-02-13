@@ -3,9 +3,10 @@ const app = express()
 const cors = require('cors')
 
 app.use(cors())
+app.use(express.json())
 
 app.get('/', function (req, res) {
-    res.setHeader('Access-Control-Allow-Origin', '*')
+    // res.setHeader('Access-Control-Allow-Origin', '*')
     res.send ('ZecaInfo')
 })
 
@@ -76,15 +77,18 @@ app.get("/produtos", function (req, res){
     })
 })
 
-app.get("/produto", function (req, res){
-    const { titulo, preco, descricao, foto, categoria } = req.body;
-    conexao.query(`INSERT INTO produtos, (titulo, preco, descricao, foto, categoria) value('${titulo}','${foto}','${descricao}','${preco}','${avaliacao}','${categoria}')`,
-        function (erro, lista_produtos, campos){
-        if (erro) {
-            res.json(erro);
-        }
-        res.send(resultado.insertID)
-    })
+app.post("/produto/", function (req, res) {
+console.dir(req.body)
+    const { titulo, preco, descricao, avaliacao, foto, categoria } = req.body;
+    conexao.query(`
+        INSERT INTO produtos(titulo, foto, descricao, preco, avaliacao, categoria)
+        values('${titulo}','${foto}','${descricao}',${preco}, ${avaliacao}, '${categoria}')`,
+        function (erro, resultado) {
+            if (erro) {
+                res.json(erro);
+            }
+            res.send(resultado.insertId);
+        });
 })
 
 app.get("/unidades", function (req, res){
@@ -94,6 +98,35 @@ app.get("/unidades", function (req, res){
         res.send(lista_unidades)
     })
 })
+
+app.post("/unidades", function (req, res) {
+
+    const { 
+        nome_da_loja, 
+        endereco, 
+        email, 
+        telefone, 
+        foto, 
+        latitude, 
+        longitude 
+    } = req.body;
+
+    conexao.query(
+        `
+        INSERT INTO unidades
+        (nome_da_loja, foto, endereco, email, telefone, latitude, longitude)
+        VALUES ('${nome_da_loja}','${foto}','${endereco}', '${email}', '${telefone}','${latitude}', '${longitude}')
+    `,
+        function (erro, resultado) {
+            if (erro) {
+                res.json(erro);
+            }
+
+            res.send(resultado.insertId);
+        }
+    );
+});
+
 
 app.get("/produtos/:categoria",function (req, res){
     // res.setHeader('Access-Control-Allow-Origin','*')
