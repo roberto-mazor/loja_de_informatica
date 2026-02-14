@@ -1,5 +1,10 @@
 const express = require('express')
 const app = express()
+const bodyParser = require('body-parser')
+
+app.use (bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.json())
+
 const cors = require('cors')
 
 app.use(cors())
@@ -79,10 +84,9 @@ app.get("/produtos", function (req, res){
 
 app.post("/produto/", function (req, res) {
 console.dir(req.body)
-    const { titulo, preco, descricao, avaliacao, foto, categoria } = req.body;
+    const data = req.body;
     conexao.query(`
-        INSERT INTO produtos(titulo, foto, descricao, preco, avaliacao, categoria)
-        values('${titulo}','${foto}','${descricao}',${preco}, ${avaliacao}, '${categoria}')`,
+        INSERT INTO produtos set ?, [data]`,
         function (erro, resultado) {
             if (erro) {
                 res.json(erro);
@@ -113,9 +117,7 @@ app.post("/unidades", function (req, res) {
 
     conexao.query(
         `
-        INSERT INTO unidades
-        (nome_da_loja, foto, endereco, email, telefone, latitude, longitude)
-        VALUES ('${nome_da_loja}','${foto}','${endereco}', '${email}', '${telefone}','${latitude}', '${longitude}')
+        INSERT INTO unidades set ?, [data])
     `,
         function (erro, resultado) {
             if (erro) {
@@ -146,19 +148,21 @@ app.get("/produtos/:categoria/:ordem",function (req, res){
     })
 })
 
-
+app.post("/login/", function(req,res){
+    const usuario = req.body.usuario
+    const senha = req.body.senha
+    conexao.query(`select * from usuarios where usuario = '${usuario}' and senha = '${senha}'`, function (erro, resultado, campos){
+        if (erro){
+            res.send(erro)
+        }else{
+            if (resultado.length > 0){
+                res.status(200).send('Sucesso!')
+            }else{
+                res.status(401).send('Inválido')
+            }
+        }
+    })
+})
 
 
 app.listen (3000)
-
-
-// 1- trazer apenas 12 primeiros produtos 
-// 2- trazer apenas produtos que comecem com a letra a 
-// 3- trazer apenas produtos que tenham o preço de 410 
-// 4- trazer apenas produtos com avaliação 4 e 5 
-// 5- trazer apenas produtos com avaliação 1 e 5 
-// 6- trazer apenas produtos entre id 21 e 32 
-// 7- trazer apenas os 12 últimos produtos 
-// 8- trazer apenas os 12 primeiros produtos com avaliação 5 
-// 9- trazer todo os produtos em ordem de preço do menor para o maior 
-// 10- trazer todo os produtos em ordem de avaliação do menor para o maior.
