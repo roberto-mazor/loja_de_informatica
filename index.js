@@ -156,13 +156,13 @@ app.post("/login/", function(req,res){
             res.send(erro)
         }else{
             if (resultado.length > 0){
-                res.status(200).send('Sucesso!')
+                res.sendStatus(200)
             }else{
-                res.status(401).send('Inválido')
+                res.sendStatus(401)
             }
         }
     })
 })
 
 
-app.listen (3000)
+app.listen(3000)
