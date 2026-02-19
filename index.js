@@ -164,5 +164,20 @@ app.post("/login/", function(req,res){
     })
 })
 
+app.post("/usuarios", (req, res) => {
+
+    const { usuario, senha, nome, sobrenome, cidade, estado, permissao } = req.body;
+
+    if (!usuario || !senha || !permissao) {
+        return res.status(400).json({ erro: "Dados obrigatórios faltando" });
+    }
+
+   `
+   INSERT INTO usuarios set ?, [data])
+    `
+
+    res.status(201).json({ mensagem: "Usuário cadastrado" });
+});
+
 
 app.listen(3000)
