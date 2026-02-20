@@ -25,20 +25,21 @@ function fnMensagemSalvar() {
 
 //===================////===================////===================//
 
-function fnCadastrarProdutos() {
-  let formDados = {
-    titulo: document.getElementById("titulo").value,
-    preco: document.getElementById("preco").value,
-    descricao: document.getElementById("descricao").value,
-    avaliacao: document.getElementById("avaliacao").value,
-    foto: document.getElementById("foto").value,
-    categoria: document.getElementById("categoria").value,
-  };
+function fnSalvarProdutos() {
+    const parametros = new URLSearchParams(window.location.search);
+    const id = parametros.get('id') + "/"
 
-  //console.dir(formDados)
+    let formDados = {
+        titulo: document.getElementById("titulo").value,
+        preco: document.getElementById("preco").value,
+        descricao: document.getElementById("descricao").value,
+        avaliacao: document.getElementById("avaliacao").value,
+        foto: document.getElementById("foto").value,
+        categoria: document.getElementById("categoria").value
+    } 
 
-  fetch("http://localhost:3000/produto/", {
-    method: "POST",
+  fetch("http://localhost:3000/produto/" + id, {
+    method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(formDados),
   })
@@ -50,6 +51,9 @@ function fnCadastrarProdutos() {
     })
     .catch((erro) => console.log(erro.message));
 }
+
+ 
+
 
 let foto = document.getElementById("foto");
 let btn_salvar = document.getElementById("btn-salvar-produto");
