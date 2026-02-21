@@ -26,17 +26,17 @@ function fnMensagemSalvar() {
 //===================////===================////===================//
 
 function fnSalvarProdutos() {
-    const parametros = new URLSearchParams(window.location.search);
-    const id = parametros.get('id') + "/"
-
-    let formDados = {
-        titulo: document.getElementById("titulo").value,
-        preco: document.getElementById("preco").value,
-        descricao: document.getElementById("descricao").value,
-        avaliacao: document.getElementById("avaliacao").value,
-        foto: document.getElementById("foto").value,
-        categoria: document.getElementById("categoria").value
-    } 
+  const parametros = new URLSearchParams(window.location.search);
+  const id = parametros.get("id") + "/";
+  
+  let formDados = {
+    titulo: document.getElementById("titulo").value,
+    preco: document.getElementById("preco").value,
+    descricao: document.getElementById("descricao").value,
+    avaliacao: document.getElementById("avaliacao").value,
+    foto: document.getElementById("foto").value,
+    categoria: document.getElementById("categoria").value,
+  };
 
   fetch("http://localhost:3000/produto/" + id, {
     method: "PUT",
@@ -52,9 +52,6 @@ function fnSalvarProdutos() {
     .catch((erro) => console.log(erro.message));
 }
 
- 
-
-
 let foto = document.getElementById("foto");
 let btn_salvar = document.getElementById("btn-salvar-produto");
 
@@ -63,7 +60,7 @@ foto.addEventListener("blur", function () {
 });
 
 btn_salvar.addEventListener("click", () => {
-  fnCadastrarProdutos();
+  fnSalvarProdutos();
 });
 
 //========================editar produto========================//

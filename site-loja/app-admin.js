@@ -13,7 +13,14 @@ function fnMontarLinhaProdutos(produto) {
       <td class="acoes">
         <a href="um-produto.html?id=${produto.id}" class="btn" alt="Ver produto"><img width="15" height="15" src="https://img.icons8.com/ios-filled/50/search--v1.png" alt="search--v1"/></a>
         <a href="editar-produto.html?id=${produto.id}" class="btn"alt="editar produto"><img width="15" height="15" src="https://img.icons8.com/deco-glyph/48/pencil.png" alt="pencil"/></a>
-        <button type="button" class="btn" alt="Excluir produto"> <img width="15" height="15" src="https://img.icons8.com/material-sharp/24/trash.png" alt="trash"/></button>
+      <button type="button"
+              class="btn"
+              onclick="fnExcluirProduto(${produto.id}, event.target)"
+              alt="Excluir produto">
+          <img width="15" height="15"
+              src="https://img.icons8.com/material-sharp/24/trash.png"
+              alt="trash"/>
+      </button>
      </td>
     </tr>
   `;

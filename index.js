@@ -195,4 +195,19 @@ app.put("/produto/:id", function (req, res) {
     })
 })
 
+// Delete - [DELETE] /produto/:id
+app.delete("/produto/:id", function (req, res) {
+
+    const id = req.params.id
+
+    conexao.query(`delete from produtos where id = ${id}`, function (erro, resultado) {
+
+        if (erro) {
+            res.send(erro)
+        }
+
+        res.json({ "status": 200, "message": "Excluído com sucesso!" })
+    })
+})
+
 app.listen(3000)
